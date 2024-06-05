@@ -1,0 +1,101 @@
+<div class="container">
+
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+
+            <h5 class="card-title">Consulta de tarefas</h5>
+            <p class="card-text">Informe o período de datas desejado:</p>
+
+
+            <form [formGroup]="formulario" (ngSubmit)="consultarTarefas()">
+
+
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label>Data de início:</label>
+                        <input type="datetime-local" class="form-control"
+                            formControlName="dataMin"/>
+                        <span class="text-danger" *ngIf="f['dataMin'].touched && f['dataMin'].invalid">
+                            Informe a data de início.
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Data de término:</label>
+                        <input type="datetime-local" class="form-control"
+                            formControlName="dataMax"/>
+                        <span class="text-danger" *ngIf="f['dataMax'].touched && f['dataMax'].invalid">
+                            Informe a data de término.
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary mt-4"
+                            [disabled]="formulario.invalid"
+                            value="Realizar Pesquisa"/>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+            <div class="mb-3">
+                {{mensagemConsulta}}
+            </div>
+
+            <div *ngIf="mensagemExclusao" class="mb-3 alert alert-danger alert-dismissible">
+                <strong>{{mensagemExclusao}}</strong>
+                <button (click)="mensagemExclusao = ''"
+                type="button" 
+                class="btn-close" 
+                aria-label="Close"></button>
+            </div>
+
+            <div *ngIf="tarefas != null && tarefas.length > 0" class="table-responsive mb-5">
+                <table class="table table-sm table-striped">
+                    <thead> <!-- Cabeçalho da tabela -->
+                        <tr> <!-- Linha -->
+                            <th>Nome da tarefa</th>
+                            <th>Data e hora</th>
+                            <th>Prioridade</th>
+                            <th>Descrição</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody> <!-- Corpo da tabela -->
+                        <tr *ngFor="let t of tarefas">
+                            <td width="30%">{{t.nome | uppercase}}</td>
+                            <td>{{t.dataHora | date: 'dd/MM/yyyy HH:mm'}}</td>
+                            <td>
+                                <span *ngIf="t.prioridade == 1" class="badge text-bg-danger">
+                                    ALTA
+                                </span>
+                                <span *ngIf="t.prioridade == 2" class="badge text-bg-warning">
+                                    MÉDIA
+                                </span>
+                                <span *ngIf="t.prioridade == 3" class="badge text-bg-success">
+                                    BAIXA
+                                </span>
+                            </td>
+                            <td>{{t.descricao}}</td>
+                            <td width="140">
+                                <button class="btn btn-sm btn-outline-primary me-1" [routerLink]="['/pages/edicao-tarefas', t.id]">
+                                    Editar
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    (click)="excluirTarefa(t.id)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>

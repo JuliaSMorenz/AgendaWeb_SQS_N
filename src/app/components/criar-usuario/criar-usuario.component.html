@@ -1,0 +1,77 @@
+<div class="row">
+
+    <div class="col-md-4 offset-md-4">
+
+        <div class="card mt-5">
+
+            <div class="card-body">
+
+                <div class="text-center mb-3">
+                    <h4 class="mt-2">Criação de usuários</h4>
+                    <p>Entre com os seus dados para criar uma conta.</p>
+                </div>
+                <hr/>
+
+                <div class="text-center text-success mb-3">
+                    <strong>{{mensagemSucesso}}</strong>
+                </div>
+
+                <div class="text-center text-danger mb-3">
+                    <strong>{{mensagemErro}}</strong>
+                </div>
+
+                <form [formGroup]="form" (submit)="onSubmit()">
+
+                    <div class="mb-2">
+                        <label>Nome do usuário:</label>
+                        <input type="text" class="form-control" formControlName="nome"/>
+                        <div class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+                            Por favor, informe o nome do usuário de 8 a 100 caracteres.
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Email do usuário:</label>
+                        <input type="text" class="form-control" formControlName="email"/>
+                        <div class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                            Por favor, informe um endereço de email válido
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Senha do usuário:</label>
+                        <input type="password" class="form-control" formControlName="senha"/>
+                        <div class="text-danger" *ngIf="f['senha'].touched && f['senha'].invalid">
+                            Por favor, informe uma senha com letras minúsculas, maiúsculas, números, símbolos e com pelo menos 8 caracteres.
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Confirme a senha do usuário:</label>
+                        <input type="password" class="form-control" formControlName="senhaConfirmacao"/>
+                        <div class="text-danger" *ngIf="f['senhaConfirmacao'].touched && f['senhaConfirmacao'].invalid">
+                            Por favor, confirme a senha de acesso.
+                        </div>
+                    </div>
+
+                    <div class="mb-2 d-grid">
+                        <input type="submit" class="btn btn-primary"
+                            value="Realizar Cadastro"
+                            [disabled]="form.invalid"/>
+                    </div>
+
+                    <div class="mb-2 d-grid">
+                        <input type="button" class="btn btn-light"
+                            value="Já possui conta? Acesse aqui!"
+                            [routerLink]="['/pages/login-usuario']">
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

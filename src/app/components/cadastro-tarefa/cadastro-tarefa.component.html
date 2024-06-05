@@ -1,0 +1,92 @@
+<div class="container">
+
+
+    <div class="card mt-3">
+      <div class="card-body">
+   
+        <h5 class="card-title">Cadastro de tarefas</h5>
+        <p class="card-text">Inclua tarefas em sua agenda</p>
+
+        <div *ngIf="mensagem" class="mb-3 alert alert-primary alert-dismissible">
+            <strong>{{mensagem}}</strong>
+            <button (click)="mensagem = ''"
+            type="button" 
+            class="btn-close" 
+            aria-label="Close"></button>
+        </div>
+   
+        <form [formGroup]="formulario" (submit)="cadastrarTarefa()">
+  
+  
+          <div class="row mb-3">
+  
+  
+            <div class="col-md-6">
+              <label>Nome da tarefa:</label>
+              <input type="text" class="form-control" formControlName="nome"/>
+
+              <span class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+                Por favor, informe o nome da tarefa de 8 a 100 caracteres.
+              </span>
+            </div>
+  
+  
+            <div class="col-md-3">
+              <label>Data e hora:</label>
+              <input type="datetime-local" class="form-control" formControlName="dataHora"/>
+
+              <span class="text-danger" *ngIf="f['dataHora'].touched && f['dataHora'].invalid">
+                Por favor, informe a data e hora da tarefa.
+              </span>
+            </div>
+  
+  
+            <div class="col-md-3">
+              <label>Prioridade:</label>
+              <select class="form-select" formControlName="prioridade">
+                <option value="">Escolha uma opção</option>
+                <option value="1">Alta</option>
+                <option value="2">Média</option>
+                <option value="3">Baixa</option>
+              </select>
+
+              <span class="text-danger" *ngIf="f['prioridade'].touched && f['prioridade'].invalid">
+                Por favor, informe a prioridade da tarefa.
+              </span>
+            </div>
+  
+  
+          </div>
+  
+  
+          <div class="row mb-3">
+            <div class="col">
+              <label>Descrição da tarefa:</label>
+              <textarea class="form-control" formControlName="descricao"></textarea>
+
+              <span class="text-danger" *ngIf="f['descricao'].touched && f['descricao'].invalid">
+                Por favor, informe a descrição da tarefa de 8 a 250 caracteres.
+              </span>
+            </div>
+          </div>
+  
+  
+          <div class="row mb-3">
+            <div class="col">
+              <input 
+              type="submit" 
+              value="Cadastrar Tarefa" 
+              class="btn btn-primary"
+              [disabled]="formulario.invalid"/>
+            </div>
+          </div>
+  
+  
+        </form>
+  
+  
+      </div>
+    </div>
+  
+  
+  </div>
